@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "get-list-data-react-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/getListDataReact/GetListDataReactWebPart.js",
+          "manifest": "./src/webparts/getListDataReact/GetListDataReactWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "GetListDataReactWebPartStrings": "lib/webparts/getListDataReact/loc/{locale}.js"
+  }
+}

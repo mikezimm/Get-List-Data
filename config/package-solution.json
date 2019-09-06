@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "get-list-data-client-side-solution",
+    "id": "5b91fc68-c495-41f1-a8ca-3e498e0ae187",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/get-list-data.sppkg"
+  }
+}
