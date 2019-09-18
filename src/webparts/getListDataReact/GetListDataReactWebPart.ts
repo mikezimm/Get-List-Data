@@ -53,7 +53,18 @@ export default class GetListDataReactWebPart extends BaseClientSideWebPart<IGetL
       });
     });
   }
+/*
+  public render(): void {
 
+    // A simple loading message
+    this.domElement.innerHTML = `Loading...`;
+
+    sp.web.select("Title").get().then(w => {
+
+        this.domElement.innerHTML = `Web Title: ${w.Title}`;
+    });
+}
+*/
   //Added for Get List Data:  https://www.youtube.com/watch?v=b9Ymnicb1kc
   public render(): void {
     const element: React.ReactElement<IGetListDataReactProps > = React.createElement(
@@ -61,7 +72,6 @@ export default class GetListDataReactWebPart extends BaseClientSideWebPart<IGetL
         loadListItems: this.loadListItems
       }
     );
-
     ReactDom.render(element, this.domElement);
   }
 
@@ -106,6 +116,6 @@ export default class GetListDataReactWebPart extends BaseClientSideWebPart<IGetL
           ]
         }
       ]
-    };
+    }
   }
 }
