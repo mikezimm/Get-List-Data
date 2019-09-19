@@ -19,7 +19,7 @@ import { IGetListDataReactProps } from './components/IGetListDataReactProps';
 // patric rogers (good simple example for real site):   https://www.youtube.com/watch?v=VTCB6WQCJI8
 
 // npm install @pnp/logging @pnp/common @pnp/odata @pnp/sp --save
-import { sp } from '@pnp/sp';
+import { sp, Web } from '@pnp/sp';
 import {IListItem} from './IListItem'
 
 /*
@@ -69,7 +69,8 @@ export default class GetListDataReactWebPart extends BaseClientSideWebPart<IGetL
   public render(): void {
     const element: React.ReactElement<IGetListDataReactProps > = React.createElement(
       GetListDataReact,{
-        loadListItems: this.loadListItems
+        loadListItems: this.loadListItems,
+        loadOtherListItems: this.loadOtherListItems,
       }
     );
     ReactDom.render(element, this.domElement);
@@ -82,11 +83,49 @@ export default class GetListDataReactWebPart extends BaseClientSideWebPart<IGetL
     .select("Title","CustomerID").filter("Title eq 'GM'").orderBy("Id",true).getAll()
     */
 
+    /*  Be sure to import Web from @pnp/sp first, then use this to get from another web.
+
+        let web = new Web('https://mcclickster.sharepoint.com/sites/Templates/ScriptTesting/');
+        const result:IListItem[] = await web.lists.getByTitle("Customers").items
+
+        or .... 
+
+        let web = new Web('https://mcclickster.sharepoint.com/sites/Templates/ScriptTesting/');
+        web.get().then(w => {
+          console.log(w);
+        });
+
+    */
     const result:IListItem[] = await sp.web.lists.getByTitle("Customers").items
       .orderBy("Id",true).getAll()
     return(result);
   }
 
+  //Added for Get List Data:  https://www.youtube.com/watch?v=b9Ymnicb1kc
+  private async loadOtherListItems(): Promise<IListItem[]> {
+    /* Filtering example of same one and only retreiving certain columns
+    const result:IListItem[] = await sp.web.lists.getByTitle("Customers").items
+    .select("Title","CustomerID").filter("Title eq 'GM'").orderBy("Id",true).getAll()
+    */
+
+    /*  Be sure to import Web from @pnp/sp first, then use this to get from another web.
+
+        let web = new Web('https://mcclickster.sharepoint.com/sites/Templates/ScriptTesting/');
+        const result:IListItem[] = await web.lists.getByTitle("Customers").items
+
+        or .... 
+
+        let web = new Web('https://mcclickster.sharepoint.com/sites/Templates/ScriptTesting/');
+        web.get().then(w => {
+          console.log(w);
+        });
+        
+    */
+   let web = new Web('https://mcclickster.sharepoint.com/sites/Templates/SPFx/');
+   const result:IListItem[] = await web.lists.getByTitle("CustomersSPFx").items
+      .orderBy("Id",true).getAll()
+    return(result);
+  }
 
 //Standard oob from here down.
   protected onDispose(): void {

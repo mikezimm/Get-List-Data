@@ -9,6 +9,8 @@ export interface IGetListDataProps {
 
 export interface IGetListDataReactProps {
   loadListItems?: () => Promise<IListItem[]>;
+  loadOtherListItems?: () => Promise<IListItem[]>;
   allItems?:IListItem[];
   someItems?:IListItem[];
+  otherItems?:IListItem[];
 }

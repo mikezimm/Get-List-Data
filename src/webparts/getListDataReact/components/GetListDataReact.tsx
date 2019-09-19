@@ -16,12 +16,15 @@ export default class GetListDataReact extends React.Component<IGetListDataReactP
     super(props);
     this.state = { 
       allItems:[],
+      someItems:[],
+      otherItems:[],
     }
   }
 
   //https://www.youtube.com/watch?v=4nsGhYjfRsw 9:50-ish talks about this line to update props
   public componentDidMount() {
     this._loadListItems();
+    this._loadOtherListItems();
   }
   /*
             Removed this from the public render below to auto load data.
@@ -43,7 +46,7 @@ export default class GetListDataReact extends React.Component<IGetListDataReactP
               text="Load List Items"
               title="Load List Items"
               onClick={this._loadListItems} />
-
+                <h2>This site's items</h2>
                 {this.state.allItems.map(function(item:IListItem){
                   return(
                     <div>
@@ -54,6 +57,16 @@ export default class GetListDataReact extends React.Component<IGetListDataReactP
                   )
                 })}
 
+                <h2>Items from other site</h2>
+                {this.state.otherItems.map(function(item:IListItem){
+                  return(
+                    <div>
+                      <span>
+                        {item.Title} {item.CustomerID}
+                      </span>
+                    </div>
+                  )
+                })} 
             </div>
           </div>
         </div>
@@ -70,7 +83,16 @@ export default class GetListDataReact extends React.Component<IGetListDataReactP
 
     //https://www.youtube.com/watch?v=4nsGhYjfRsw 9:01-ish talks about this line to update props
     this.setState({allItems:listItems});
+    console.log("Items from THIS site");
     console.log(listItems);
   }
+  private async _loadOtherListItems(): Promise<void> {
+    //This invokes the loadListItems function on the parent webpart.ts
+    const listItems2: IListItem[] = await this.props.loadOtherListItems();
 
+    //https://www.youtube.com/watch?v=4nsGhYjfRsw 9:01-ish talks about this line to update props
+    this.setState({otherItems:listItems2});
+    console.log("Other Items from other site");
+    console.log(listItems2);
+  }
 }
